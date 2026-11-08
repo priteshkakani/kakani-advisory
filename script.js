@@ -5,20 +5,35 @@
   const header = document.querySelector(".site-header");
   const nav = document.getElementById("primary-nav");
   const toggle = document.querySelector(".nav-toggle");
-  const navLinks = document.querySelectorAll(".nav-link");
 
   const onScroll = () => {
     header && header.classList.toggle("is-scrolled", window.scrollY > 10);
-    const y = window.scrollY + 140;
-    let current = "top";
-    document.querySelectorAll("main section[id]").forEach((s) => {
-      if (s.offsetTop <= y) current = s.id;
-    });
-    if (window.scrollY < 80) current = "top";
-    navLinks.forEach((l) => l.classList.toggle("is-active", l.getAttribute("href") === "#" + current));
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  // mark current page in nav
+  const path = location.pathname.replace(/index\.html$/, "");
+  document.querySelectorAll(".nav a, .dd-menu a").forEach((a) => {
+    const href = a.getAttribute("href") || "";
+    if (href === path || (href !== "/" && !href.includes("#") && path.startsWith(href))) {
+      a.classList.add("is-active");
+      const dd = a.closest(".nav-dd");
+      dd && dd.querySelector(".dd-toggle").classList.add("is-active");
+    }
+  });
+
+  // dropdowns: click/tap to toggle (hover handled in CSS on desktop)
+  document.querySelectorAll(".nav-dd").forEach((dd) => {
+    const btn = dd.querySelector(".dd-toggle");
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = dd.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", String(open));
+      document.querySelectorAll(".nav-dd").forEach((o) => { if (o !== dd) { o.classList.remove("is-open"); o.querySelector(".dd-toggle").setAttribute("aria-expanded", "false"); } });
+    });
+  });
+  document.addEventListener("click", () => document.querySelectorAll(".nav-dd.is-open").forEach((o) => o.classList.remove("is-open")));
 
   if (toggle && nav) {
     toggle.addEventListener("click", () => {
@@ -26,7 +41,7 @@
       toggle.setAttribute("aria-expanded", String(!open));
       nav.classList.toggle("is-open", !open);
     });
-    navLinks.forEach((l) =>
+    nav.querySelectorAll("a").forEach((l) =>
       l.addEventListener("click", () => {
         toggle.setAttribute("aria-expanded", "false");
         nav.classList.remove("is-open");
@@ -129,11 +144,57 @@
         return { main: ["Retirement corpus needed", corpus], rows: [["Monthly expenses at " + rage, monthlyAtRet], ["Monthly SIP needed from now", sip], ["Years to retirement", null, yrsToRet + " yrs"]] };
       },
     },
+    lumptarget: {
+      fields: [
+        { id: "target", label: "Target amount", min: 100000, max: 100000000, step: 100000, value: 5000000, fmt: inr },
+        { id: "yrs", label: "Time period", min: 1, max: 40, step: 1, value: 10, fmt: (v) => v + " yrs" },
+        { id: "rate", label: "Expected return (p.a.)", min: 1, max: 20, step: 0.5, value: 12, fmt: (v) => v + "%" },
+      ],
+      run: ({ target, yrs, rate }) => {
+        const lump = target / Math.pow(1 + rate / 100, yrs);
+        return { main: ["One-time investment needed", lump], rows: [["Target amount", target], ["Estimated gains", target - lump], ["OR monthly SIP needed", sipNeeded(target, rate, yrs)]], bar: [lump, target - lump] };
+      },
+    },
+    education: {
+      fields: [
+        { id: "age", label: "Child's current age", min: 0, max: 17, step: 1, value: 5, fmt: (v) => v + " yrs" },
+        { id: "cage", label: "Age at college", min: 15, max: 25, step: 1, value: 18, fmt: (v) => v + " yrs" },
+        { id: "cost", label: "Education cost today", min: 100000, max: 20000000, step: 100000, value: 2000000, fmt: inr },
+        { id: "inf", label: "Education inflation", min: 0, max: 15, step: 0.5, value: 10, fmt: (v) => v + "%" },
+        { id: "rate", label: "Expected return (p.a.)", min: 1, max: 20, step: 0.5, value: 12, fmt: (v) => v + "%" },
+      ],
+      run: ({ age, cage, cost, inf, rate }) => {
+        const yrs = Math.max(cage - age, 1);
+        const future = cost * Math.pow(1 + inf / 100, yrs);
+        return { main: ["Monthly SIP needed", sipNeeded(future, rate, yrs)], rows: [["Cost when child turns " + cage, future], ["OR one-time investment today", future / Math.pow(1 + rate / 100, yrs)], ["Years to goal", null, yrs + " yrs"]] };
+      },
+    },
+    swp: {
+      fields: [
+        { id: "corpus", label: "Total investment", min: 100000, max: 100000000, step: 100000, value: 5000000, fmt: inr },
+        { id: "wd", label: "Monthly withdrawal", min: 1000, max: 1000000, step: 1000, value: 30000, fmt: inr },
+        { id: "rate", label: "Expected return (p.a.)", min: 1, max: 15, step: 0.5, value: 8, fmt: (v) => v + "%" },
+        { id: "yrs", label: "Time period", min: 1, max: 40, step: 1, value: 15, fmt: (v) => v + " yrs" },
+      ],
+      run: ({ corpus, wd, rate, yrs }) => {
+        const i = rate / 1200;
+        let bal = corpus, total = 0, months = 0;
+        for (let m = 1; m <= yrs * 12; m++) {
+          bal = bal * (1 + i);
+          if (bal <= 0) break;
+          const w = Math.min(wd, bal);
+          bal -= w; total += w; months = m;
+          if (bal <= 0) break;
+        }
+        const lasts = bal > 0 ? "Beyond " + yrs + " yrs" : Math.floor(months / 12) + " yrs " + (months % 12) + " m";
+        return { main: ["Balance after " + yrs + " yrs", Math.max(bal, 0)], rows: [["Total withdrawn", total], ["Corpus lasts", null, lasts]] };
+      },
+    },
   };
 
   const form = document.getElementById("calc-form");
   const result = document.getElementById("calc-result");
-  let active = "sip";
+  let active = document.body.dataset.calc || "sip";
 
   const renderForm = () => {
     const c = CALCS[active];
@@ -166,7 +227,7 @@
     r.rows.forEach(([k, v, txt]) => {
       html += `<div class="res-row"><span>${k}</span><b>${txt || inr(v)}</b></div>`;
     });
-    html += `<a class="btn btn-accent" href="#contact">Plan This With Us</a>`;
+    html += `<a class="btn btn-accent" href="/#contact">Plan This With Us</a>`;
     result.innerHTML = html;
   };
 
