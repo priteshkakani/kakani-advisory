@@ -282,7 +282,7 @@
         return;
       }
       const p = PROFILES.find((x) => score <= x.max);
-      const msg = encodeURIComponent(`Hi Pritesh, I took the risk profiler on your website. My profile: ${p.name} (score ${score}/24). I'd like to discuss a suitable plan.`);
+      const msg = encodeURIComponent(`Hi Pritesh, I took the risk profiler on your website.\n\n*Risk profile:* ${p.name}\n*Score:* ${score}/24\n\nI'd like to discuss suitable investments.\n\n_Sent via kakaniwealth.com_`);
       quizResult.innerHTML = `<div class="result-box"><p class="eyebrow eyebrow-light">Your Risk Profile</p><h3>${p.name}</h3>
         <p>${p.text} This is an indicative self-assessment, not investment advice. Suitability is confirmed through a detailed risk profile during onboarding.</p>
         <a class="btn btn-accent" href="https://wa.me/${WA_NUMBER}?text=${msg}" target="_blank" rel="noopener noreferrer">Discuss My Profile On WhatsApp</a></div>`;
@@ -295,11 +295,27 @@
     cf.addEventListener("submit", (e) => {
       e.preventDefault();
       const d = new FormData(cf);
-      const text = `Hi Pritesh, I'd like to book a call.\nName: ${d.get("name")}\nPhone: ${d.get("phone")}\nCity/Country: ${d.get("city") || "-"}\nInterested in: ${d.get("interest")}`;
-      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+      const v = (k) => (d.get(k) || "").toString().trim();
+      const lines = [
+        "Hi Pritesh, I'd like to book a call.",
+        "",
+        `*Name:* ${v("name")}`,
+        `*Mobile:* ${v("phone")}`,
+      ];
+      if (v("email")) lines.push(`*Email:* ${v("email")}`);
+      lines.push(
+        `*Location:* ${[v("city"), v("country")].filter(Boolean).join(", ")}`,
+        `*Interested in:* ${v("interest")}`,
+        `*Best time to call:* ${v("time")}`
+      );
+      if (v("note")) lines.push("", `*Message:* ${v("note")}`);
+      lines.push("", "_Sent via kakaniwealth.com_");
+      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+      let win = null;
+      try { win = window.open(url, "_blank", "noopener"); } catch (err) { win = null; }
       let out = cf.querySelector(".cf-out");
       if (!out) { out = document.createElement("p"); out.className = "cf-out"; cf.appendChild(out); }
-      out.innerHTML = `<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener noreferrer">Open WhatsApp To Send →</a>`;
+      out.innerHTML = `<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener noreferrer">${win ? "WhatsApp didn't open? Tap here" : "Open WhatsApp To Send →"}</a>`;
     });
   }
 

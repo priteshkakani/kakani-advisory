@@ -363,18 +363,38 @@
             </ul>
           </div>
           <form class="contact-form" id="contact-form">
-            <label>Name<input name="name" required /></label>
-            <label>Phone<input name="phone" type="tel" required /></label>
-            <label>City / Country<input name="city" /></label>
-            <label>I'm interested in
-              <select name="interest">
-                <option>Starting a SIP</option>
-                <option>Goal-based investing</option>
-                <option>Portfolio review</option>
-                <option>NRI investing</option>
-                <option>PMS / AIF / SIF</option>
-              </select>
-            </label>
+            <label>Full name<input name="name" required autocomplete="name" placeholder="e.g. Aditya Kamble" /></label>
+            <div class="form-row">
+              <label>Mobile (with country code)<input name="phone" type="tel" required autocomplete="tel" placeholder="+91 98765 43210" pattern="[+0-9 ()-]{8,}" /></label>
+              <label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email" placeholder="you@example.com" /></label>
+            </div>
+            <div class="form-row">
+              <label>City<input name="city" required placeholder="e.g. Pune" /></label>
+              <label>Country<input name="country" required value="India" /></label>
+            </div>
+            <div class="form-row">
+              <label>I'm interested in
+                <select name="interest">
+                  <option>Mutual Funds / SIP</option>
+                  <option>NRI investing</option>
+                  <option>Goal-based investing</option>
+                  <option>Portfolio review</option>
+                  <option>SIF</option>
+                  <option>PMS</option>
+                  <option>AIF</option>
+                  <option>Bonds &amp; Fixed Deposits</option>
+                </select>
+              </label>
+              <label>Best time to call
+                <select name="time">
+                  <option>Morning (9 AM – 12 PM IST)</option>
+                  <option>Afternoon (12 – 5 PM IST)</option>
+                  <option>Evening (5 – 8 PM IST)</option>
+                  <option>Weekend</option>
+                </select>
+              </label>
+            </div>
+            <label><span>Message <span class="opt">(optional)</span></span><textarea name="note" rows="3" placeholder="e.g. I live in Dubai and want to start a SIP from my NRE account."></textarea></label>
             <button type="submit" class="btn btn-accent">Send On WhatsApp</button>
             <p class="small-note">This opens WhatsApp with your details filled in. Nothing is stored on this website.</p>
           </form>
