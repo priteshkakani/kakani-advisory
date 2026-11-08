@@ -193,9 +193,9 @@
     ["How much investing experience do you have?", ["None", "Only FDs / savings", "Some mutual funds", "Equity & MFs for years"]],
   ];
   const PROFILES = [
-    { max: 12, name: "Conservative", text: "You value stability. A debt-heavy portfolio with a small equity allocation (around 20–30%) may suit you better." },
-    { max: 18, name: "Moderate", text: "You want growth with controlled swings. A balanced mix (around 40–60% equity) through hybrid and diversified funds may suit you." },
-    { max: 24, name: "Aggressive", text: "You can ride out volatility for higher long-term growth. An equity-heavy portfolio (70%+) with a long horizon may suit you." },
+    { max: 12, name: "Conservative", text: "You place a high value on stability and capital protection, and prefer lower volatility." },
+    { max: 18, name: "Moderate", text: "You want growth but are comfortable only with moderate ups and downs." },
+    { max: 24, name: "Aggressive", text: "You have a long horizon and can tolerate significant short-term volatility in pursuit of growth." },
   ];
 
   const qWrap = document.getElementById("quiz-questions");
@@ -223,7 +223,7 @@
       const p = PROFILES.find((x) => score <= x.max);
       const msg = encodeURIComponent(`Hi Pritesh, I took the risk profiler on your website. My profile: ${p.name} (score ${score}/24). I'd like to discuss a suitable plan.`);
       quizResult.innerHTML = `<div class="result-box"><p class="eyebrow eyebrow-light">Your Risk Profile</p><h3>${p.name}</h3>
-        <p>${p.text} This is an indicative self-assessment, not a recommendation.</p>
+        <p>${p.text} This is an indicative self-assessment, not investment advice. Suitability is confirmed through a detailed risk profile during onboarding.</p>
         <a class="btn btn-accent" href="https://wa.me/${WA_NUMBER}?text=${msg}" target="_blank" rel="noopener noreferrer">Discuss My Profile On WhatsApp</a></div>`;
     });
   }
@@ -241,4 +241,12 @@
       out.innerHTML = `<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener noreferrer">Open WhatsApp To Send →</a>`;
     });
   }
+
+  /* ---------- Open policy panels from footer links ---------- */
+  const openPolicy = () => {
+    const el = document.getElementById(location.hash.slice(1));
+    if (el && el.tagName === "DETAILS") el.open = true;
+  };
+  window.addEventListener("hashchange", openPolicy);
+  openPolicy();
 })();
