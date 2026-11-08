@@ -385,3 +385,21 @@ p { margin: 0; }
 .nav-link, .dd-toggle, .header-cta { white-space: nowrap; }
 .brand-text { white-space: nowrap; }
 @media (max-width: 560px) { .brand-text { white-space: normal; } }
+
+/* ---------- Intellect & Integrity ---------- */
+.stages-3 { grid-template-columns: repeat(3, 1fr); }
+.ii { background: #fff; }
+.ii-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.ii-card { background: var(--bg); border: 1px solid var(--line); border-radius: 20px; padding: 2.2rem; }
+.ii-card-dark { background: var(--navy); border-color: var(--navy); }
+.ii-head { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.4rem; }
+.ii-icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 1.6rem; background: #fff; box-shadow: var(--shadow); }
+.ii-head h3 { font-size: 1.8rem; }
+.ii-card-dark .ii-head h3 { color: var(--accent); }
+.ii-card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.ii-card li { padding-left: 1.1rem; border-left: 3px solid var(--accent); color: var(--ink-soft); font-size: .96rem; }
+.ii-card li b { color: var(--navy); display: block; margin-bottom: .15rem; }
+.ii-card-dark li { color: #c9d7e3; }
+.ii-card-dark li b { color: #fff; }
+@media (max-width: 900px) { .ii-grid, .stages-3 { grid-template-columns: 1fr; } }
+.stage { align-content: start; }

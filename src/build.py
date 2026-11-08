@@ -108,6 +108,7 @@ def footer():
           <h4>Quick Links</h4>
           <a href="/about/">About</a>
           <a href="/investment-process/">Our Investment Process</a>
+          <a href="/about/#philosophy">Intellect &amp; Integrity</a>
           <a href="/#risk-profiler">Risk Profiler</a>
           <a href="/#faq">FAQs</a>
           <a href="/#disclosures">Disclosures</a>
@@ -216,6 +217,38 @@ def disclaimer(extra=""):
           <p>Pritesh Kakani (trading as {SITE}) is an AMFI-Registered Mutual Fund Distributor, ARN-373766, EUIN E717134. We are not a
           SEBI-Registered Investment Adviser. Any guidance provided is incidental to distribution. {extra} Past performance is not
           indicative of future returns, and returns are not guaranteed.</p>
+        </div>
+      </section>
+"""
+
+
+INTELLECT_INTEGRITY = """      <section class="section ii" id="philosophy">
+        <div class="wrap">
+          <div class="section-head center">
+            <p class="eyebrow">Our Philosophy</p>
+            <h2>Built on Intellect &amp; Integrity</h2>
+            <p class="lede">Most of an investor's long-term success comes from behaviour: staying disciplined, diversified and invested. Our job is to make that easier, and to add careful thinking where it matters.</p>
+          </div>
+          <div class="ii-grid">
+            <article class="ii-card">
+              <div class="ii-head"><span class="ii-icon">🧠</span><h3>Intellect</h3></div>
+              <ul>
+                <li><b>Portfolio over products.</b> How your overall portfolio is built (allocation, diversification and goal mapping) matters more than picking any single scheme.</li>
+                <li><b>Active monitoring, not "buy and forget".</b> Portfolios are reviewed and rebalanced as markets, schemes and your life change.</li>
+                <li><b>Tracking as a discipline.</b> We use a structured, data-driven review process, shaped by an engineering background and 9+ years in the markets.</li>
+                <li><b>Risk management first.</b> Protecting the downside comes before chasing returns: credit quality, concentration and liquidity are checked before anything else.</li>
+              </ul>
+            </article>
+            <article class="ii-card ii-card-dark">
+              <div class="ii-head"><span class="ii-icon">🤝</span><h3>Integrity</h3></div>
+              <ul>
+                <li><b>Client first.</b> Every suggestion has to serve your interest and suit your goals and risk profile.</li>
+                <li><b>No sales targets.</b> We have no product-pushing incentives. If a product doesn't fit you, we won't suggest it.</li>
+                <li><b>Skin in the game.</b> We only suggest products we understand and would be comfortable recommending to our own family.</li>
+                <li><b>Full disclosure.</b> Commissions, costs, risks and direct-plan alternatives are always shared upfront.</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
 """
@@ -559,6 +592,7 @@ def about_page():
           </div>
         </div>
       </section>
+{INTELLECT_INTEGRITY}
 {cta_band("Let's start with a conversation.")}
 {disclaimer()}
     </main>"""
@@ -575,6 +609,7 @@ def home():
                   main, count=1, flags=re.S)
     main = main.replace('<a class="btn btn-primary" href="#contact">Book An Appointment</a>\n          </div>\n        </div>\n      </section>\n\n      <!-- Services -->',
                         '<a class="btn btn-primary" href="/about/">Read Full Profile</a>\n          </div>\n        </div>\n      </section>\n\n      <!-- Services -->', 1)
+    main = main.replace("      <!-- Services -->", INTELLECT_INTEGRITY + "\n      <!-- Services -->", 1)
     # service cards -> links
     for s, n in SERVICES:
         main = main.replace(f"<h3>{esc(n)}</h3>", f'<h3><a href="/services/{s}/">{esc(n)}</a></h3>', 1)
@@ -592,20 +627,19 @@ def home():
 # ---------------------------------------------------------------- Investment process page
 def process_page():
     stages = [
-        ("01", "Discovery Meeting", "We start with a conversation about your goals, income, existing investments, time horizon and comfort with risk, followed by a formal risk profile."),
-        ("02", "Portfolio Design", "Each goal gets its own bucket. We suggest an asset allocation and shortlist suitable fund categories and schemes, with reasons, costs and commission disclosed."),
-        ("03", "Implementation", "Once you approve, we set up SIPs and lump-sum investments in line with your risk profile and goals. Nothing is executed without your consent."),
-        ("04", "Ongoing Monitoring", "We monitor your portfolio on an ongoing basis and review it formally every quarter, checking progress against each goal and suggesting rebalancing when needed."),
+        ("01", "Initial Meeting", "We discuss your goals, income, existing investments, time horizon and risk tolerance, complete a formal risk profile, and outline an initial strategy for each goal."),
+        ("02", "Implementation", "Investments are matched to your risk profile and objectives. We share the suggested allocation and schemes with reasons, costs and commission, and execute only after your approval."),
+        ("03", "Ongoing Support", "We monitor your portfolio continuously and review it formally every quarter against your objectives, suggesting rebalancing whenever it drifts or your life changes."),
     ]
     onboarding = [
-        ("Share Documents", "PAN, Aadhaar, a photograph, a cancelled cheque or bank proof, plus passport and overseas address proof for NRIs."),
-        ("KYC Verification", "Online KYC with a KYC Registration Agency (KRA), and FATCA declaration where applicable."),
-        ("Platform Registration", "We register you on an exchange mutual fund transaction platform so that investments can be placed online."),
-        ("Fund Selection", "Schemes are shortlisted against your goals, time horizon and risk profile. You approve the final list."),
-        ("SIP Setup", "Monthly SIPs are registered with an auto-debit mandate (e-NACH), so investing becomes automatic."),
-        ("Lump-Sum Investments", "One-time investments are placed directly, or through an STP if staggered entry suits you better."),
-        ("Portfolio Access", "You get online access to your holdings, plus your Consolidated Account Statement (CAS) from CAMS / KFintech."),
-        ("Quarterly Reviews", "Regular review meetings, with ongoing monitoring in between, to keep every goal on track."),
+        ("Document Submission", "Share basic documents: PAN, Aadhaar, a photograph and bank proof. NRIs also share a passport and overseas address proof."),
+        ("KYC Validation", "Your documents are verified and KYC is completed with a KYC Registration Agency (KRA), plus the FATCA declaration where applicable."),
+        ("Platform Onboarding", "You're registered on an exchange mutual fund transaction platform (NSE / BSE) so investments can be placed online."),
+        ("Fund Selection", "Schemes are evaluated against your objectives, time horizon and risk profile. You approve the final shortlist."),
+        ("SIP Setup", "Systematic Investment Plans are registered with an auto-debit mandate (e-NACH), so investing becomes automatic."),
+        ("Lump Sum Setup", "One-time investments are executed directly, or through an STP if staggered entry suits you better."),
+        ("Portfolio Access & Login", "You receive online access to your holdings, plus your Consolidated Account Statement (CAS) from CAMS / KFintech."),
+        ("Track Anytime", "View your portfolio online whenever you like. We guide you through it, with quarterly reviews and ongoing monitoring in between."),
     ]
     principles = [
         ("Discipline over timing", "Consistent SIPs and staying invested matter more than predicting markets."),
@@ -619,14 +653,14 @@ def process_page():
     ob = "".join(f'<li><span class="ob-no">{i+1}</span><h4>{t}</h4><p>{d}</p></li>' for i, (t, d) in enumerate(onboarding))
     pr = "".join(f'<article class="mini-card"><h3>{t}</h3><p>{d}</p></article>' for t, d in principles)
     main = f"""    <main>
-{page_hero("Our Investment Process", "Disciplined investing,<br />step by step", "A structured, repeatable process, from understanding your goals to onboarding, implementation and ongoing monitoring, so you always know what we're doing and why.", ["Our Investment Process"])}
+{page_hero("Our Investment Process", "Disciplined investing,<br />step by step", "A structured, repeatable process, from the first meeting to onboarding, implementation and ongoing support, so you always know what we're doing and why.", ["Our Investment Process"])}
       <section class="section">
         <div class="wrap">
           <div class="section-head center">
             <p class="eyebrow">Process Overview</p>
-            <h2>Four stages, one goal: your long-term wealth</h2>
+            <h2>Three stages, one goal: your long-term wealth</h2>
           </div>
-          <ol class="stages">{st}</ol>
+          <ol class="stages stages-3">{st}</ol>
         </div>
       </section>
 
@@ -654,7 +688,7 @@ def process_page():
 {cta_band("Ready to get your portfolio reviewed?")}
 {disclaimer()}
     </main>"""
-    write("investment-process/index.html", page(f"Our Investment Process | {SITE}", "How Kakani Financial Services works: a discovery meeting, portfolio design, implementation and ongoing monitoring, plus paperless onboarding.", main))
+    write("investment-process/index.html", page(f"Our Investment Process | {SITE}", "How Kakani Financial Services works: an initial meeting, implementation and ongoing support, plus 8-step paperless onboarding.", main))
 
 
 def not_found():
