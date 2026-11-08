@@ -326,4 +326,17 @@
   };
   window.addEventListener("hashchange", openPolicy);
   openPolicy();
+
+  /* ---------- Preselect enquiry type from consultation buttons ---------- */
+  const setInterest = (val) => {
+    const sel = document.querySelector('#contact-form select[name="interest"]');
+    if (sel && val) [...sel.options].forEach((o) => { if (o.text === val) sel.value = o.value; });
+  };
+  document.querySelectorAll("[data-interest]").forEach((a) =>
+    a.addEventListener("click", () => {
+      try { sessionStorage.setItem("kfs-interest", a.dataset.interest); } catch (e) {}
+      setInterest(a.dataset.interest);
+    })
+  );
+  try { setInterest(sessionStorage.getItem("kfs-interest")); sessionStorage.removeItem("kfs-interest"); } catch (e) {}
 })();

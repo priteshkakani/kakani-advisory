@@ -227,7 +227,7 @@ p { margin: 0; }
 .wa-float:hover { transform: scale(1.08); }
 
 /* Responsive */
-@media (max-width: 1080px) {
+@media (max-width: 1240px) {
   .nav { position: fixed; inset: 76px 0 auto 0; background: #fff; flex-direction: column; gap: 0; padding: 1rem 4%; border-bottom: 1px solid var(--line); box-shadow: var(--shadow); transform: translateY(-120%); transition: transform .3s ease; z-index: 40; }
   .nav.is-open { transform: translateY(0); }
   .nav-link { padding: .8rem 0; border-bottom: 1px solid var(--line); }
@@ -328,7 +328,7 @@ p { margin: 0; }
 .sub-h { margin: 2rem 0 .2rem; }
 .footer-grid-5 { grid-template-columns: 1.4fr 1fr 1.1fr 1.1fr 1.3fr; }
 
-@media (max-width: 1080px) {
+@media (max-width: 1240px) {
   .nav { align-items: stretch; max-height: calc(100vh - 76px); overflow-y: auto; }
   .nav-dd { border-bottom: 1px solid var(--line); }
   .dd-toggle { width: 100%; justify-content: space-between; padding: .8rem 0; border: 0; }
@@ -350,3 +350,38 @@ p { margin: 0; }
 .contact-form textarea:focus { outline: 2px solid var(--teal); border-color: transparent; }
 .opt { font-weight: 400; color: var(--ink-soft); font-size: .8rem; }
 @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+/* ---------- Badges, strip, process page ---------- */
+.hero-badges { list-style: none; padding: 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+.hero-badges li { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); color: #e6eef5; font-size: .85rem; font-weight: 600; padding: .45rem .85rem; border-radius: 999px; }
+.hero-badges b { color: var(--accent); margin-right: .25rem; }
+.cred-strip { background: #fff; border-bottom: 1px solid var(--line); }
+.cred-strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.cred-strip-grid > div { padding: 1.6rem 1.2rem; text-align: center; border-right: 1px solid var(--line); display: grid; gap: .25rem; }
+.cred-strip-grid > div:last-child { border-right: 0; }
+.cred-strip-grid b { font-family: var(--serif); font-size: 1.6rem; color: var(--navy); }
+.cred-strip-grid span { font-size: .85rem; color: var(--ink-soft); }
+.center-cta { text-align: center; margin-top: 2.4rem; }
+.stages { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.stage { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.8rem 1.5rem; border-top: 4px solid var(--teal); display: grid; gap: .8rem; }
+.stage-no { font-family: var(--serif); font-size: 2rem; color: var(--accent); }
+.stage p { color: var(--ink-soft); font-size: .93rem; margin-top: .4rem; }
+.onboard-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; counter-reset: ob; }
+.onboard-grid li { background: #fff; border-radius: var(--radius); padding: 1.5rem; position: relative; }
+.ob-no { width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--navy); color: var(--accent); display: grid; place-items: center; font-weight: 700; margin-bottom: .9rem; }
+.onboard-grid h4 { font-size: 1.08rem; }
+.onboard-grid p { color: var(--ink-soft); font-size: .9rem; margin-top: .4rem; }
+.pull-quote { margin: 3rem auto 0; max-width: 760px; text-align: center; font-family: var(--serif); font-size: 1.5rem; color: var(--navy); border-left: 0; padding: 0 1rem; }
+.pull-quote::before { content: "“"; color: var(--accent); }
+.pull-quote::after { content: "”"; color: var(--accent); }
+.vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.6rem; }
+.vm { background: #eef4f4; border-radius: 12px; padding: 1.2rem 1.3rem; }
+.vm h4 { color: var(--teal); font-size: 1.05rem; }
+.vm p { color: var(--ink-soft); font-size: .92rem; margin-top: .4rem; }
+@media (max-width: 1080px) { .stages, .onboard-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .cred-strip-grid { grid-template-columns: repeat(2, 1fr); } .cred-strip-grid > div:nth-child(2) { border-right: 0; } }
+@media (max-width: 560px) { .stages, .onboard-grid, .vm-grid { grid-template-columns: 1fr; } }
+
+.nav-link, .dd-toggle, .header-cta { white-space: nowrap; }
+.brand-text { white-space: nowrap; }
+@media (max-width: 560px) { .brand-text { white-space: normal; } }

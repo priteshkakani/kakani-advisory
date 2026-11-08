@@ -41,7 +41,7 @@ def esc(t):
 
 def header():
     svc = "".join(f'<a href="/services/{s}/">{esc(n)}</a>' for s, n in SERVICES) + '<a href="/#nri">NRI Desk</a>'
-    calc = "".join(f'<a href="/calculators/{CALC_SLUG[c]}/">{n}</a>' for c, n in CALCS)
+    calc = "".join(f'<a href="/calculators/{CALC_SLUG[c]}/">{n}</a>' for c, n in CALCS) + '<a href="/#risk-profiler">Risk Profiler</a>'
     return f"""    <div class="topbar">
       <div class="wrap topbar-inner">
         <div class="topbar-contact">
@@ -58,13 +58,14 @@ def header():
           <span class="brand-mark">K</span>
           <span class="brand-text">
             <span class="brand-name">{SITE}</span>
-            <span class="brand-tag">{REG}</span>
+            <span class="brand-tag">AMFI-Registered Mutual Fund Distributor · ARN-373766</span>
           </span>
         </a>
 
         <nav class="nav" id="primary-nav" aria-label="Primary">
           <a href="/" class="nav-link">Home</a>
           <a href="/about/" class="nav-link">About</a>
+          <a href="/investment-process/" class="nav-link">Our Process</a>
           <div class="nav-dd">
             <button class="nav-link dd-toggle" type="button" aria-expanded="false">Services <span class="caret">▾</span></button>
             <div class="dd-menu">{svc}</div>
@@ -73,12 +74,11 @@ def header():
             <button class="nav-link dd-toggle" type="button" aria-expanded="false">Calculators <span class="caret">▾</span></button>
             <div class="dd-menu">{calc}</div>
           </div>
-          <a href="/#risk-profiler" class="nav-link">Risk Profiler</a>
           <a href="/#faq" class="nav-link">FAQs</a>
           <a href="/#contact" class="nav-link">Contact</a>
         </nav>
 
-        <a class="btn btn-accent header-cta" href="/#contact">Book A Call</a>
+        <a class="btn btn-accent header-cta" href="/#contact" data-interest="Portfolio consultation">Portfolio Consultation</a>
 
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
           <span></span><span></span><span></span>
@@ -107,6 +107,7 @@ def footer():
         <div>
           <h4>Quick Links</h4>
           <a href="/about/">About</a>
+          <a href="/investment-process/">Our Investment Process</a>
           <a href="/#risk-profiler">Risk Profiler</a>
           <a href="/#faq">FAQs</a>
           <a href="/#disclosures">Disclosures</a>
@@ -190,7 +191,7 @@ def page_hero(eyebrow, h1, lede, crumbs):
           <h1>{h1}</h1>
           <p class="hero-lede">{lede}</p>
           <div class="hero-actions">
-            <a class="btn btn-accent" href="/#contact">Book An Appointment</a>
+            <a class="btn btn-accent" href="/#contact" data-interest="Portfolio consultation">Book A Portfolio Consultation</a>
             <a class="btn btn-ghost" href="{WA}" target="_blank" rel="noopener noreferrer">Chat On WhatsApp</a>
           </div>
         </div>
@@ -202,7 +203,7 @@ def cta_band(text="Have questions about whether this suits you?"):
     return f"""      <section class="closing">
         <div class="wrap closing-inner">
           <h2>{text}</h2>
-          <a class="btn btn-accent" href="/#contact">Talk To Pritesh</a>
+          <a class="btn btn-accent" href="/#contact" data-interest="Portfolio consultation">Book A Portfolio Consultation</a>
         </div>
       </section>
 """
@@ -515,12 +516,13 @@ BIO_CARD = """<div class="founder-card founder-photo-card">
               <li><b>EUIN</b><span>E717134</span></li>
               <li><b>Education</b><span>B.Tech + M.Tech, IIT Kharagpur</span></li>
               <li><b>Certification</b><span>NISM Series V-A</span></li>
+              <li><b>Market experience</b><span>9+ years, stocks &amp; commodities</span></li>
               <li><b>Base</b><span>Ahilyanagar, Maharashtra</span></li>
             </ul>
           </div>"""
 
 BIO_TEXT = """<p class="lede">Pritesh Kakani is the founder of Kakani Financial Services and an AMFI-Registered Mutual Fund Distributor (ARN-373766, EUIN E717134). He holds a B.Tech and an M.Tech in Electronics from IIT Kharagpur (2014).</p>
-            <p class="lede">Before moving into financial services, he spent a decade as a software engineer, rising to Senior Software Engineer at companies including UnitedHealth Group, Nutanix, Qolsys, Vedantu and e-Zest Solutions. That background shapes how he works: structured, data-driven and process-first.</p>
+            <p class="lede">Before moving into financial services, he spent a decade as a software engineer, rising to Senior Software Engineer at companies including UnitedHealth Group, Nutanix, Qolsys, Vedantu and e-Zest Solutions. Alongside his engineering career, he has spent 9+ years actively following and participating in Indian stock and commodity markets. That background shapes how he works: structured, data-driven and process-first.</p>
             <p class="lede">Today he helps resident and NRI families invest through mutual funds and other financial products, starting from their goals, their risk profile and their time horizon, with full transparency on costs and commissions. He is based in Ahilyanagar, Maharashtra, and works with clients across India and abroad.</p>"""
 
 
@@ -541,6 +543,10 @@ def about_page():
             <p class="eyebrow">Pritesh Kakani</p>
             <h2>Engineer by training. Distributor by choice.</h2>
             {BIO_TEXT}
+            <div class="vm-grid">
+              <div class="vm"><h4>Our Vision</h4><p>To be a trusted mutual fund distributor that makes a lasting, positive difference to the financial lives of the families we serve.</p></div>
+              <div class="vm"><h4>Our Mission</h4><p>To give every investor a simple, transparent and disciplined investing experience, from the first SIP to retirement.</p></div>
+            </div>
             <h3 class="sub-h">Our principles</h3>
             <ul class="checks">
               <li>Goals and risk profile first, product second</li>
@@ -549,7 +555,7 @@ def about_page():
               <li>Diversification across categories and fund houses</li>
               <li>Regular reviews and responsive service</li>
             </ul>
-            <a class="btn btn-primary" href="/#contact">Book An Appointment</a>
+            <a class="btn btn-primary" href="/#contact" data-interest="Portfolio consultation">Book A Portfolio Consultation</a>
           </div>
         </div>
       </section>
@@ -583,6 +589,74 @@ def home():
                              main))
 
 
+# ---------------------------------------------------------------- Investment process page
+def process_page():
+    stages = [
+        ("01", "Discovery Meeting", "We start with a conversation about your goals, income, existing investments, time horizon and comfort with risk, followed by a formal risk profile."),
+        ("02", "Portfolio Design", "Each goal gets its own bucket. We suggest an asset allocation and shortlist suitable fund categories and schemes, with reasons, costs and commission disclosed."),
+        ("03", "Implementation", "Once you approve, we set up SIPs and lump-sum investments in line with your risk profile and goals. Nothing is executed without your consent."),
+        ("04", "Ongoing Monitoring", "We monitor your portfolio on an ongoing basis and review it formally every quarter, checking progress against each goal and suggesting rebalancing when needed."),
+    ]
+    onboarding = [
+        ("Share Documents", "PAN, Aadhaar, a photograph, a cancelled cheque or bank proof, plus passport and overseas address proof for NRIs."),
+        ("KYC Verification", "Online KYC with a KYC Registration Agency (KRA), and FATCA declaration where applicable."),
+        ("Platform Registration", "We register you on an exchange mutual fund transaction platform so that investments can be placed online."),
+        ("Fund Selection", "Schemes are shortlisted against your goals, time horizon and risk profile. You approve the final list."),
+        ("SIP Setup", "Monthly SIPs are registered with an auto-debit mandate (e-NACH), so investing becomes automatic."),
+        ("Lump-Sum Investments", "One-time investments are placed directly, or through an STP if staggered entry suits you better."),
+        ("Portfolio Access", "You get online access to your holdings, plus your Consolidated Account Statement (CAS) from CAMS / KFintech."),
+        ("Quarterly Reviews", "Regular review meetings, with ongoing monitoring in between, to keep every goal on track."),
+    ]
+    principles = [
+        ("Discipline over timing", "Consistent SIPs and staying invested matter more than predicting markets."),
+        ("Goals first", "Every rupee is mapped to a goal, a horizon and a suitable risk level."),
+        ("Transparency", "Clear reasoning, costs, commissions and direct-plan alternatives are always disclosed."),
+        ("Your approval", "You approve every strategy and transaction, and you can track your portfolio anytime."),
+        ("Diversification", "Spread across asset classes, fund houses and, where suitable, global markets."),
+        ("Continuous review", "Ongoing monitoring with formal quarterly reviews."),
+    ]
+    st = "".join(f'<li class="stage"><span class="stage-no">{n}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for n, t, d in stages)
+    ob = "".join(f'<li><span class="ob-no">{i+1}</span><h4>{t}</h4><p>{d}</p></li>' for i, (t, d) in enumerate(onboarding))
+    pr = "".join(f'<article class="mini-card"><h3>{t}</h3><p>{d}</p></article>' for t, d in principles)
+    main = f"""    <main>
+{page_hero("Our Investment Process", "Disciplined investing,<br />step by step", "A structured, repeatable process, from understanding your goals to onboarding, implementation and ongoing monitoring, so you always know what we're doing and why.", ["Our Investment Process"])}
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head center">
+            <p class="eyebrow">Process Overview</p>
+            <h2>Four stages, one goal: your long-term wealth</h2>
+          </div>
+          <ol class="stages">{st}</ol>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="wrap">
+          <div class="section-head center">
+            <p class="eyebrow">Onboarding</p>
+            <h2>Getting started is 100% paperless</h2>
+            <p class="lede">Most investors are onboarded within a few working days, whether in India or abroad.</p>
+          </div>
+          <ol class="onboard-grid">{ob}</ol>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head center">
+            <p class="eyebrow">Our Principles</p>
+            <h2>What guides every recommendation</h2>
+          </div>
+          <div class="mini-grid">{pr}</div>
+          <blockquote class="pull-quote">Investing takes time. Consistency and discipline are what keep investors focused on their long-term goals.</blockquote>
+        </div>
+      </section>
+{cta_band("Ready to get your portfolio reviewed?")}
+{disclaimer()}
+    </main>"""
+    write("investment-process/index.html", page(f"Our Investment Process | {SITE}", "How Kakani Financial Services works: a discovery meeting, portfolio design, implementation and ongoing monitoring, plus paperless onboarding.", main))
+
+
 def not_found():
     main = """    <main>
       <section class="page-hero page-hero-sm"><div class="wrap"><h1>Page not found</h1>
@@ -595,6 +669,7 @@ def not_found():
 if __name__ == "__main__":
     home()
     about_page()
+    process_page()
     for s, _ in SERVICES:
         service_page(s)
     for c, _ in CALCS:
