@@ -235,7 +235,10 @@
       e.preventDefault();
       const d = new FormData(cf);
       const text = `Hi Pritesh, I'd like to book a call.\nName: ${d.get("name")}\nPhone: ${d.get("phone")}\nCity/Country: ${d.get("city") || "-"}\nInterested in: ${d.get("interest")}`;
-      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+      let out = cf.querySelector(".cf-out");
+      if (!out) { out = document.createElement("p"); out.className = "cf-out"; cf.appendChild(out); }
+      out.innerHTML = `<a class="btn btn-primary" href="${url}" target="_blank" rel="noopener noreferrer">Open WhatsApp To Send →</a>`;
     });
   }
 })();
