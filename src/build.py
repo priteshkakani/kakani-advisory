@@ -157,6 +157,7 @@ def page(title, desc, main, body_attr=""):
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>if(location.protocol==="http:"&&/kakaniwealth[.]com$/.test(location.hostname)){{location.replace("https://kakaniwealth.com"+location.pathname+location.search+location.hash)}}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content="{desc}" />
