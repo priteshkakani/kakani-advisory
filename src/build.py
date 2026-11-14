@@ -7,7 +7,8 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "Kakani Financial Services"
+SITE = "Kakani Wealth"
+LEGAL = "Pritesh Kakani (trading as Kakani Financial Services)"
 REG = "AMFI-Registered MFD · ARN-373766 · EUIN E717134 · APMI-Registered PMS Distributor · APRN10835"
 PHONE = "+91 86183 02179"
 WA = "https://wa.me/918618302179"
@@ -131,7 +132,7 @@ def footer():
         </div>
       </div>
       <div class="wrap footer-bottom">
-        <p>© 2026 {SITE}. All rights reserved. Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</p>
+        <p>© 2026 {SITE} · a brand of {LEGAL} · ARN-373766 · APRN10835. All rights reserved. Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</p>
         <div class="footer-legal">
           <a href="https://www.amfiindia.com/" target="_blank" rel="noopener noreferrer">AMFI</a>
           <a href="https://www.amfiindia.com/locate-distributor" target="_blank" rel="noopener noreferrer">Verify ARN</a>
@@ -215,7 +216,7 @@ def disclaimer(extra=""):
     return f"""      <section class="regulatory">
         <div class="wrap">
           <p class="risk-line">Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</p>
-          <p>Pritesh Kakani (trading as {SITE}) is an AMFI-Registered Mutual Fund Distributor, ARN-373766, EUIN E717134, and an APMI-Registered PMS Distributor, APRN10835. We are not a
+          <p>{SITE} is the brand name of {LEGAL}, an AMFI-Registered Mutual Fund Distributor, ARN-373766, EUIN E717134, and an APMI-Registered PMS Distributor, APRN10835. We are not a
           SEBI-Registered Investment Adviser. Any guidance provided is incidental to distribution. {extra} Past performance is not
           indicative of future returns, and returns are not guaranteed.</p>
         </div>
@@ -542,7 +543,7 @@ def calc_page(key):
 
 # ---------------------------------------------------------------- About page
 BIO_CARD = """<div class="founder-card founder-photo-card">
-            <img class="founder-photo" src="/assets/pritesh-kakani.jpg" alt="Pritesh Kakani, founder of Kakani Financial Services" width="768" height="1024" loading="lazy" />
+            <img class="founder-photo" src="/assets/pritesh-kakani.jpg" alt="Pritesh Kakani, founder of Kakani Wealth" width="768" height="1024" loading="lazy" />
             <h3>Pritesh Kakani</h3>
             <p class="founder-role">Founder · AMFI-Registered Mutual Fund Distributor</p>
             <ul class="founder-facts">
@@ -556,7 +557,7 @@ BIO_CARD = """<div class="founder-card founder-photo-card">
             </ul>
           </div>"""
 
-BIO_TEXT = """<p class="lede">Pritesh Kakani is the founder of Kakani Financial Services and an AMFI-Registered Mutual Fund Distributor (ARN-373766, EUIN E717134) and an APMI-Registered PMS Distributor (APRN10835). He holds a B.Tech and an M.Tech in Electronics from IIT Kharagpur (2014).</p>
+BIO_TEXT = """<p class="lede">Pritesh Kakani is the founder of Kakani Wealth (registered business name: Kakani Financial Services) and an AMFI-Registered Mutual Fund Distributor (ARN-373766, EUIN E717134) and an APMI-Registered PMS Distributor (APRN10835). He holds a B.Tech and an M.Tech in Electronics from IIT Kharagpur (2014).</p>
             <p class="lede">Before moving into financial services, he spent a decade as a software engineer, rising to Senior Software Engineer at companies including UnitedHealth Group, Nutanix, Qolsys, Vedantu and e-Zest Solutions. Alongside his engineering career, he has spent 9+ years actively following and participating in Indian stock and commodity markets. That background shapes how he works: structured, data-driven and process-first.</p>
             <p class="lede">Today he helps resident and NRI families invest through mutual funds and other financial products, starting from their goals, their risk profile and their time horizon, with full transparency on costs and commissions. He is based in Ahilyanagar, Maharashtra, and works with clients across India and abroad.</p>"""
 
@@ -622,7 +623,7 @@ def home():
                         '<div class="calc-links">' + "".join(f'<a href="/calculators/{CALC_SLUG[c]}/">{n}</a>' for c, n in CALCS) +
                         '</div>\n          <p class="disclaimer">Calculators are for illustration only.', 1)
     write("index.html", page(f"{SITE} | AMFI-Registered Mutual Fund Distributor (ARN-373766)",
-                             "Kakani Financial Services — Pritesh Kakani, AMFI-Registered Mutual Fund Distributor (ARN-373766, EUIN E717134), PMS Distributor (APRN10835), Ahilyanagar. Mutual funds, SIF, PMS, AIF, bonds and FDs for resident and NRI families.",
+                             "Kakani Wealth — Pritesh Kakani (Kakani Financial Services), AMFI-Registered Mutual Fund Distributor (ARN-373766, EUIN E717134), PMS Distributor (APRN10835), Ahilyanagar. Mutual funds, SIF, PMS, AIF, bonds and FDs for resident and NRI families.",
                              main))
 
 
@@ -690,7 +691,7 @@ def process_page():
 {cta_band("Ready to get your portfolio reviewed?")}
 {disclaimer()}
     </main>"""
-    write("investment-process/index.html", page(f"Our Investment Process | {SITE}", "How Kakani Financial Services works: an initial meeting, implementation and ongoing support, plus 8-step paperless onboarding.", main))
+    write("investment-process/index.html", page(f"Our Investment Process | {SITE}", "How Kakani Wealth works: an initial meeting, implementation and ongoing support, plus 8-step paperless onboarding.", main))
 
 
 def not_found():
