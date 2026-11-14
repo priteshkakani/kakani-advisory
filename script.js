@@ -281,8 +281,14 @@
         quizResult.innerHTML = `<p class="quiz-error">Please answer all ${QUESTIONS.length} questions.</p>`;
         return;
       }
+      const qn = (data.get("qname") || "").toString().trim();
+      const qp = (data.get("qphone") || "").toString().trim();
+      if (!qn || qp.replace(/[^0-9]/g, "").length < 8) {
+        quizResult.innerHTML = `<p class="quiz-error">Please enter your name and a valid mobile number.</p>`;
+        return;
+      }
       const p = PROFILES.find((x) => score <= x.max);
-      const msg = encodeURIComponent(`Hi Pritesh, I took the risk profiler on your website.\n\n*Risk profile:* ${p.name}\n*Score:* ${score}/24\n\nI'd like to discuss suitable investments.\n\n_Sent via kakaniwealth.com_`);
+      const msg = encodeURIComponent(`Hi Pritesh, I took the risk profiler on your website.\n\n*Name:* ${qn}\n*Mobile:* ${qp}\n*Risk profile:* ${p.name}\n*Score:* ${score}/24\n\nI'd like to discuss suitable investments.\n\n_Sent via kakaniwealth.com_`);
       quizResult.innerHTML = `<div class="result-box"><p class="eyebrow eyebrow-light">Your Risk Profile</p><h3>${p.name}</h3>
         <p>${p.text} This is an indicative self-assessment, not investment advice. Suitability is confirmed through a detailed risk profile during onboarding.</p>
         <a class="btn btn-accent" href="https://wa.me/${WA_NUMBER}?text=${msg}" target="_blank" rel="noopener noreferrer">Discuss My Profile On WhatsApp</a></div>`;

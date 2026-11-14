@@ -421,3 +421,7 @@ p { margin: 0; }
 .seg-note { font-size: .8rem; color: var(--ink-soft); margin: -0.8rem 0 1.2rem; font-style: italic; }
 .seg .btn { align-self: flex-start; }
 @media (max-width: 900px) { .seg-grid { grid-template-columns: 1fr; } }
+.quiz-contact { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: .4rem 0 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.quiz-contact label { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; color: var(--navy); }
+.quiz-contact input { font: inherit; font-weight: 400; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+@media (max-width: 560px) { .quiz-contact { grid-template-columns: 1fr; } }

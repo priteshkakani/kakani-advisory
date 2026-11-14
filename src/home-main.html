@@ -328,6 +328,10 @@
           </div>
           <form class="quiz" id="quiz">
             <div id="quiz-questions"></div>
+            <div class="quiz-contact">
+              <label>Your name<input name="qname" required autocomplete="name" /></label>
+              <label>Mobile (with country code)<input name="qphone" type="tel" required autocomplete="tel" pattern="[+0-9 ()-]{8,}" /></label>
+            </div>
             <button type="submit" class="btn btn-primary">See My Risk Profile</button>
             <div class="quiz-result" id="quiz-result" aria-live="polite"></div>
           </form>
